@@ -1,9 +1,11 @@
-import 'package:flutter/rendering.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:lottie/lottie.dart';
 import 'package:todolist/Utils/color.dart';
-import '../../extensions/space_exs.dart';
-import 'widget/fab.dart';
+import 'Components/fab.dart';
 import 'package:flutter/material.dart';
 import '../../Utils/string.dart';
+import 'Widget/task_widget.dart';
+import 'package:animate_do/animate_do.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -13,14 +15,30 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  final List<int> testing = [1];
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       backgroundColor: Colors.white,
 
       floatingActionButton: Fab(),
-      body: SizedBox(
+      body: SliderDrawer(
+        ////Drawer
+        slider: Container(
+          color: Colors.teal,
+        ), 
+
+        
+        ////Main Body
+        child: _buildHomeBody(TextTheme())
+      )
+    );
+  }
+
+
+  //// Build Home Body
+  Widget _buildHomeBody(TextTheme textTheme){
+    return SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Column(
@@ -69,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
 
             //Divider
             const Padding(
-              padding: EdgeInsets.only(top: 100.0),
+              padding: EdgeInsets.only(top: 60.0),
               child: Divider(thickness: 2, indent: 100),
             ),
 
@@ -78,55 +96,74 @@ class _HomeViewState extends State<HomeView> {
               child: SizedBox(
                 width: double.infinity,
                 height: 745,
-                child: ListView.builder(
-                  itemCount: 20,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return AnimatedContainer(
-                      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-                      duration: const Duration(milliseconds: 600),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: Colors.grey,width: 2),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 10,
-                            offset: const Offset(0,4)
-                          )
+
+
+                //// If Task list is not Empty then show this widget
+                child: testing.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: testing.length,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, index) {
+                          return Dismissible(
+                            direction: DismissDirection.horizontal,
+                            onDismissed: (_) {
+                              ///Task will be deleted from Database
+                              setState(() {
+                                testing.removeAt(index);
+                              });
+                            },
+                            background: const Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.delete_forever_outlined,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  AppStrings.deletedTask,
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ],
+                            ),
+                            key: Key(index.toString()),
+                            child: const TaskWidget(),
+                          );
+                        },
+                      )
+
+                    //// Tasklist is empty then show this widget
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+
+                          //// Lottie Animation
+                          FadeIn(
+                            child: SizedBox(
+                              height: 200,
+                              width: 200,
+                              child: Lottie.asset(
+                                "assets/lotties/Lego.json",
+                                animate: testing.isNotEmpty ? false : true,
+                              ),
+                            ),
+                          ),
+
+
+                          //// Done All Tasks Message
+                          FadeInUp(
+                            child: const Text(
+                              AppStrings.doneAllTask
+                            )
+                          ),
                         ],
                       ),
-                      child: ListTile(
-                        leading: GestureDetector(
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 600),
-                            decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.grey, width: 2)
-                            ),
-                            child: Icon(Icons.check,color: Colors.white),
-                          ),
-                        ),
-
-                        ////Task Name
-                        title: const Text(
-                          "Done", style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w500,
-                            // decoration: TextDecoration.lineThrough
-                          ),
-                        ),
-
-                      ),
-                    );
-                  },
-                ),
               ),
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }
