@@ -2,10 +2,10 @@ class AppStrings{
   static const String maintitle = "My Tasks";
   static const String deletedTask = "This task was deleted";
   static const String doneAllTask = "You Have Done All Tasks🎊";
-  static const String addNewTask = "Add New";
+  static const String addNewTask = "Add New ";
   static const String updateCurrentTask = "Update";
   static const String taskString = "Tasks";
-  static const String titleofTitleTextField = "What are you planning";
+  static const String titleofTitleTextField = "What are you planning? 🧐";
   static const String addNote = "Add Note";
   static const String timeString = "Time";
   static const String dateString = "Date";

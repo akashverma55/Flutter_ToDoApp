@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/Views/Home/home_view.dart';
+import 'package:todolist/Views/Tasks/task_view.dart';
 
 // it is used to run flutter project but before that it will load all the data.
 Future<void> main() async{

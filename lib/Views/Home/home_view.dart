@@ -1,12 +1,12 @@
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
-import 'Components/slider_drawer.dart';
+import '../Tasks/Components/slider_drawer.dart';
 import 'package:lottie/lottie.dart';
 import 'package:todolist/Utils/color.dart';
-import 'Components/fab.dart';
+import '../Tasks/Components/fab.dart';
 import 'package:flutter/material.dart';
 import '../../Utils/string.dart';
-import 'Widget/task_widget.dart';
 import 'package:animate_do/animate_do.dart';
+import '../Tasks/widget/task_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
