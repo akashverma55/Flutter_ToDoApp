@@ -1,1 +1,0 @@
-String lottieURL = "assets/lotties/Lego.json";
