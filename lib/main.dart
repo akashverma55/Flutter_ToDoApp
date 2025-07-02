@@ -1,3 +1,4 @@
+import 'package:todolist/Task/task.dart';
 import 'home/home.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home: Home(), 
+        home: Task(), 
         debugShowCheckedModeBanner: false
     );
   }
