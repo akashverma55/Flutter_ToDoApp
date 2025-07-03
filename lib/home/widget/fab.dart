@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/Task/task.dart';
 
 class floatingActionButton extends StatelessWidget {
   const floatingActionButton({
@@ -10,6 +11,7 @@ class floatingActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print("FAB Pressed");
+        Navigator.push(context, MaterialPageRoute(builder: (_) => Task()));
       },
       child: Material(
         elevation: 20,

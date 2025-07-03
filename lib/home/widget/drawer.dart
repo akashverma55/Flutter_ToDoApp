@@ -24,19 +24,21 @@ class drawer extends StatelessWidget {
             ]
           )
         ),
-        padding: EdgeInsets.only(top: 80),
+        padding: EdgeInsets.only(top: 100),
         child: Column(
           children: [
             CircleAvatar(
               radius: 70,
               backgroundImage: AssetImage("images/pic.jpg"),
             ),
+            SizedBox(height: 20,),
             Text("Akash Kumar Verma",style: TextStyle(color: Colors.white,fontSize: 20)),
             Text("akashverma@gmail.com",style: TextStyle(color: Colors.white,fontSize: 14)),
+            SizedBox(height: 20),
             divider(),
             Container(
               width: double.infinity,
-              height: 400,
+              height: 300,
               padding: EdgeInsets.only(top: 10),
               child: ListView.builder(
                 itemCount: icons.length,

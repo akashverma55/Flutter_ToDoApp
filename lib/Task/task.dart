@@ -18,59 +18,103 @@ class _Task extends State<Task>{
       onTap: ()=> FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: Icon(Icons.arrow_back),
           backgroundColor: Colors.blue,
           elevation: 10,
         ),
         body: SizedBox(
           width: double.infinity,
           height: double.infinity,
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: 100,   ////This decides the length of the divider.
-                      child: Divider(
-                        color: Colors.black,
-                        thickness: 2,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: 100,   ////This decides the length of the divider.
+                        child: Divider(
+                          color: Colors.black,
+                          thickness: 2,
+                        ),
                       ),
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Add New ",
-                        style: TextStyle(fontSize: 35),
-                        children: [
-                          TextSpan(
-                            text: "Task", 
-                            style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold)
-                          )
-                        ]
+                      RichText(
+                        text: TextSpan(
+                          text: "Add New ",
+                          style: TextStyle(fontSize: 35),
+                          children: [
+                            TextSpan(
+                              text: "Task", 
+                              style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold)
+                            )
+                          ]
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 100,
-                      child: Divider(
-                        color: Colors.black,
-                        thickness: 2,
+                      SizedBox(
+                        width: 100,
+                        child: Divider(
+                          color: Colors.black,
+                          thickness: 2,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              
+                RepTextField(Controller: titleController,desc:false),
             
-              RepTextField(Controller: titleController,desc:false),
-
-              RepTextField(Controller: descriptionController,desc:true),
-
-              DateTime(isDate: false),
-
-              DateTime(isDate: true),
-            ],
+                RepTextField(Controller: descriptionController,desc:true),
+            
+                DateTimeWidget(isDate: false),
+            
+                DateTimeWidget(isDate: true),
+            
+                Padding(
+                  padding: EdgeInsetsGeometry.only(top:120, bottom: 100),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      MaterialButton(
+                        onPressed: (){
+                          
+                        },
+                        minWidth: 150,
+                        height: 50,
+                        color: Colors.blueAccent,
+                        elevation: 10,
+                        splashColor: Colors.blue[100],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(10)
+                        ),
+                        child: Text(
+                          "Add Task 😁",
+                          style: TextStyle(color: Colors.white,fontSize:16),
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: (){
+                          
+                        },
+                        minWidth: 150,
+                        height: 50,
+                        color: Colors.blue[100],
+                        elevation: 10,
+                        splashColor: Colors.lightBlueAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(10)
+                        ),
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.blueAccent,fontSize:16),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         )
       ),
@@ -78,26 +122,36 @@ class _Task extends State<Task>{
   }
 }
 
-class DateTime extends StatelessWidget {
-  const DateTime({
+class DateTimeWidget extends StatelessWidget {
+  const DateTimeWidget({
     super.key,
     required this.isDate,
   });
+
   final bool isDate;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         isDate?
-
+        DatePicker.showDatePicker(
+          context,
+          maxDateTime: DateTime(2030,12,31),
+          minDateTime: DateTime.now(),
+          onConfirm: (dateTime,_){
+            ////on confirm it will show on UI and store in variable
+          }
+        ):
         showModalBottomSheet(
           context: context, 
           builder: (_)=>SizedBox(
             height: 280,
             child: TimePickerWidget(
-              onChange: (_,_){},
+              onChange: (_,_){   ////on change it will show on UI and store in variable
+
+              },
               dateFormat: 'HH:mm',
-              onConfirm: (dateTime,_){
+              onConfirm: (dateTime,_){ ////on enter it will confirm the variable
                 print(dateTime);
               },
             ),
@@ -105,7 +159,7 @@ class DateTime extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(left: 40,right: 40, top: 20),
+        margin: EdgeInsets.only(left: 60,right: 60, top: 20),
         padding: EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         height: 50,
@@ -152,13 +206,19 @@ class RepTextField extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             desc ?
-            Text(
-              "Give A Description Of The Task!🧐",
-              style: TextStyle(color: Colors.red, fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "Give A Description Of The Task!🧐",
+                style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+              ),
             ):
-            Text(
-              "What Are You Planning?🥳",
-              style: TextStyle(color: Colors.red, fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "What Are You Planning?🥳",
+                style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+              ),
             ),
             ListTile(
               title: TextFormField(
@@ -179,7 +239,7 @@ class RepTextField extends StatelessWidget {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.red,
+                      color: Colors.deepPurple,
                     ),
                     borderRadius: BorderRadius.circular(10)
                   ),
