@@ -7,7 +7,7 @@ class Hivedatastore{
   static const boxName = "taskbox";
 
   //Our current Box with all the saved data inside - Box<HiveTask>
-  final Box<HiveTask>box = Hive.box<HiveTask>(boxName);
+  final Box<HiveTask> box = Hive.box<HiveTask>(boxName);
 
 
   //add new task

@@ -31,7 +31,7 @@ class _Task extends State<Task>{
                   width: double.infinity,
                   height: 100,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
                         width: 100,   ////This decides the length of the divider.
@@ -43,7 +43,7 @@ class _Task extends State<Task>{
                       RichText(
                         text: TextSpan(
                           text: "Add New ",
-                          style: TextStyle(fontSize: 35),
+                          style: TextStyle(fontSize: 35,color: Colors.black),
                           children: [
                             TextSpan(
                               text: "Task", 

@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'widget/home_appbar.dart';
 import 'widget/drawer.dart';
 import 'widget/fab.dart';
+import '../Warning/warning.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,6 +24,7 @@ class _HomeState extends State<Home> {
     CupertinoIcons.info_circle_fill,
   ];
   List<String> titles = ["Home", "Profile", "Settings", "Details"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +34,7 @@ class _HomeState extends State<Home> {
           IconButton(
             onPressed: () {
               setState(() {
+                emptyWarning(context);
                 test.clear();
               });
               print("Delete All Button Pressed");
@@ -82,7 +85,7 @@ class _HomeState extends State<Home> {
             width: 250,
             height: 250,
             child: Lottie.asset(
-              "lotties/Task.json",
+              "assets/lotties/Task.json",
               animate: test.isNotEmpty ? false : true,
             ),
           ),

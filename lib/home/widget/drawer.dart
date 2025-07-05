@@ -29,7 +29,7 @@ class drawer extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 70,
-              backgroundImage: AssetImage("images/pic.jpg"),
+              backgroundImage: AssetImage("assets/images/pic.jpg"),
             ),
             SizedBox(height: 20,),
             Text("Akash Kumar Verma",style: TextStyle(color: Colors.white,fontSize: 20)),
