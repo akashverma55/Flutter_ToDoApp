@@ -34,8 +34,11 @@ class _HomeState extends State<Home> {
           IconButton(
             onPressed: () {
               setState(() {
-                emptyWarning(context);
-                test.clear();
+                if (test.isEmpty) {
+                  deleteAllTaskWarning(context);
+                } else {
+                  test.clear();
+                }
               });
               print("Delete All Button Pressed");
             },
