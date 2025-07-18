@@ -239,13 +239,7 @@ class _TaskViewState extends State<TaskView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Text(
-              AppStr.titleOfTitleTextField,
-              style: textTheme.headlineMedium,
-            ),
-          ),
+          
 
           RepTextField(
             controller: _titleController,

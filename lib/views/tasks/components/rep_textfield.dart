@@ -20,26 +20,54 @@ class RepTextField extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       width: double.infinity,
-      child: ListTile(
-        title: TextFormField(
-          controller: controller,
-          maxLines: isDesc? 2:6,
-          cursorHeight: 60,
-          style: const TextStyle(color: Colors.black),
-          decoration: InputDecoration(
-            hintText: isDesc? AppStr.addNote: "Add Title",
-            hintStyle: TextStyle(color: Colors.grey),
-            prefixIcon: isDesc? Icon(Icons.bookmark):null,
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade300),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey.shade300),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          isDesc ?
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "Give A Description Of The Task!🧐",
+                style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+              ),
+            ):
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                "What Are You Planning?🥳",
+                style: TextStyle(color: Colors.deepPurple, fontSize: 16),
+              ),
+            ),  
+          ListTile(
+            title: TextFormField(
+              controller: controller,
+              maxLines: isDesc? 2:1,
+              cursorHeight: 20,
+              style: const TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                hintText: isDesc? "Describe Your Task Here..." : "Enter Your Task Here...",
+                hintStyle: TextStyle(color: Colors.grey),
+                prefixIcon: isDesc? Icon(Icons.description,color: Colors.blue,) : Icon(Icons.title,color: Colors.blue),
+                
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.blueGrey,
+                    ),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.deepPurple,
+                    ),
+                    borderRadius: BorderRadius.circular(10)
+                  ),
+              ),
+              onFieldSubmitted: onFieldSubmit,
+              onChanged: onChanged,
             ),
           ),
-          onFieldSubmitted: onFieldSubmit,
-          onChanged: onChanged,
-        ),
+        ],
       ),
     );
   }

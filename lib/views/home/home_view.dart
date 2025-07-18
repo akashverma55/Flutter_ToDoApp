@@ -19,21 +19,20 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   // Check Value for circle progress indicator //
-  dynamic valueOfIndicator(List<Task> task){
-    if(task.isNotEmpty){
+  dynamic valueOfIndicator(List<Task> task) {
+    if (task.isNotEmpty) {
       return task.length;
-    }else{
+    } else {
       return 3;
     }
   }
 
   // Check Done Task //
-  int checkDoneTask(List<Task> tasks){
+  int checkDoneTask(List<Task> tasks) {
     int count = 0;
-    for(Task done in tasks){
-      if(done.isCompleted){
+    for (Task done in tasks) {
+      if (done.isCompleted) {
         count++;
       }
     }
@@ -54,53 +53,101 @@ class _HomeViewState extends State<HomeView> {
 
     final base = BaseWidget.of(context);
 
-    return ValueListenableBuilder(valueListenable: base.dataStore.listenToTask(), builder: (ctx,Box<Task> box, Widget? child){
+    return ValueListenableBuilder(
+      valueListenable: base.dataStore.listenToTask(),
+      builder: (ctx, Box<Task> box, Widget? child) {
+        var tasks = box.values.toList();
 
-      var tasks = box.values.toList();
+        tasks.sort((a, b) => a.createdAtDate.compareTo(b.createdAtDate));
 
-      tasks.sort((a,b)=>a.createdAtDate.compareTo(b.createdAtDate));
+        return Scaffold(
+          backgroundColor: Colors.white,
 
-      return Scaffold(
-      backgroundColor: Colors.white,
+          floatingActionButton: Fab(),
 
-      floatingActionButton: Fab(),
- 
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right:10),
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  if(tasks.isEmpty){
-                    noTaskWarning(context);
-                  }
-                  else{
-                    deleteAllTaskWarning(context);
-                  }
-                });
-                print("Delete All Button Pressed");
-              },
-              icon: const Icon(Icons.delete),
+  //         appBar: AppBar(
+  //           backgroundColor:
+  //               Colors.transparent, // ✅ make background transparent
+  //           elevation: 0,
+  //           flexibleSpace: Container(
+  //   decoration: BoxDecoration(
+  //     image: DecorationImage(
+  //       image: AssetImage('assets/images/pic.jpg'), // ✅ same image or different
+  //       fit: BoxFit.cover,
+  //     ),
+  //   ),
+  // ),
+  //           actions: [
+  //             Padding(
+  //               padding: const EdgeInsets.only(right: 10),
+  //               child: IconButton(
+  //                 onPressed: () {
+  //                   setState(() {
+  //                     if (tasks.isEmpty) {
+  //                       noTaskWarning(context);
+  //                     } else {
+  //                       deleteAllTaskWarning(context);
+  //                     }
+  //                   });
+  //                   print("Delete All Button Pressed");
+  //                 },
+  //                 icon: const Icon(Icons.delete),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+          
+
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/pic.jpg',
+                ), // 👈 your image path
+                fit: BoxFit.cover, // makes the image cover the whole screen
+              ),
             ),
+            child: _buildHomeBody(
+              textTheme,
+              base,
+              tasks,
+            ), // 👈 your content on top
           ),
-        ],
-      ),
-      drawer: drawer(icons: icons, titles: titles),
-
-      body: _buildHomeBody(textTheme,base,tasks),
-      
+        );
+      },
     );
-    });
   }
 
   /// Home Body ///
-  Widget _buildHomeBody(TextTheme textTheme,BaseWidget base, List<Task> tasks) {
+  Widget _buildHomeBody(
+    TextTheme textTheme,
+    BaseWidget base,
+    List<Task> tasks,
+  ) {
     return SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Column(
         children: [
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                drawer(icons: icons, titles: titles),
+                IconButton(onPressed: (){
+                  setState(() {
+                        if (tasks.isEmpty) {
+                          noTaskWarning(context);
+                        } else {
+                          deleteAllTaskWarning(context);
+                        }
+                      });
+                }, icon: const Icon(Icons.delete),)
+              ]
+            ),
+          ),
           /// Custom App Bar ///
           Container(
             margin: const EdgeInsets.only(top: 60),
@@ -111,12 +158,16 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 /// Progress Indicator ///
                 SizedBox(
-                  height: 25,
-                  width: 25,
+                  height: 50,
+                  width: 50,
                   child: CircularProgressIndicator(
-                    value: checkDoneTask(tasks)/valueOfIndicator(tasks),
+                    value: checkDoneTask(tasks) / valueOfIndicator(tasks),
                     backgroundColor: Colors.grey,
                     valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
+                    strokeWidth: 10,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                    strokeCap: StrokeCap.round,
+                    trackGap: 50,
                   ),
                 ),
 
@@ -130,7 +181,10 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     Text(AppStr.mainTitle, style: textTheme.displayLarge),
                     SizedBox(height: 3),
-                    Text("${checkDoneTask(tasks)} out of ${tasks.length} tasks has been completed", style: textTheme.titleMedium),
+                    Text(
+                      "${checkDoneTask(tasks)} out of ${tasks.length} tasks has been completed",
+                      style: textTheme.titleMedium,
+                    ),
                   ],
                 ),
               ],
@@ -153,8 +207,6 @@ class _HomeViewState extends State<HomeView> {
                     itemCount: tasks.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
-                      
-                      
                       /// we are getting single task from list
                       var task = tasks[index];
                       return Dismissible(
