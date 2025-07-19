@@ -141,14 +141,21 @@ class _TaskViewState extends State<TaskView> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus!.unfocus(),
       child: Scaffold(
-        appBar: const TaskViewAppBar(),
-
-        body: SizedBox(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage("https://tse3.mm.bing.net/th/id/OIP.O6O_Dikla9UiwyMzZJqUGAAAAA?pid=ImgDet&w=175&h=350&c=7&dpr=1.3&o=7&rm=3"),
+              fit:BoxFit.cover
+            )
+          ),
           width: double.infinity,
           height: double.infinity,
           child: SingleChildScrollView(
             child: Column(
               children: [
+                /// Appbar ///
+                TaskViewAppBar(),
+
                 /// Top Side Text ///
                 _buildTopSideTexts(textTheme),
 

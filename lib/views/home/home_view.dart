@@ -65,45 +65,37 @@ class _HomeViewState extends State<HomeView> {
 
           floatingActionButton: Fab(),
 
-  //         appBar: AppBar(
-  //           backgroundColor:
-  //               Colors.transparent, // ✅ make background transparent
-  //           elevation: 0,
-  //           flexibleSpace: Container(
-  //   decoration: BoxDecoration(
-  //     image: DecorationImage(
-  //       image: AssetImage('assets/images/pic.jpg'), // ✅ same image or different
-  //       fit: BoxFit.cover,
-  //     ),
-  //   ),
-  // ),
-  //           actions: [
-  //             Padding(
-  //               padding: const EdgeInsets.only(right: 10),
-  //               child: IconButton(
-  //                 onPressed: () {
-  //                   setState(() {
-  //                     if (tasks.isEmpty) {
-  //                       noTaskWarning(context);
-  //                     } else {
-  //                       deleteAllTaskWarning(context);
-  //                     }
-  //                   });
-  //                   print("Delete All Button Pressed");
-  //                 },
-  //                 icon: const Icon(Icons.delete),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-          
+          appBar: AppBar(
+            backgroundColor:
+                Colors.transparent, // ✅ make background transparent
+            elevation: 0,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (tasks.isEmpty) {
+                        noTaskWarning(context);
+                      } else {
+                        deleteAllTaskWarning(context);
+                      }
+                    });
+                    print("Delete All Button Pressed");
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              ),
+            ],
+          ),
+          drawer: drawer(icons: icons, titles: titles),
 
           body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/pic.jpg',
-                ), // 👈 your image path
+                image: NetworkImage(
+                  'https://tse2.mm.bing.net/th/id/OIP.q4Hn4agDhu4m-s7Ef76BKgHaEK?pid=ImgDet&w=184&h=103&c=7&dpr=1.3&o=7&rm=3',
+                ),
                 fit: BoxFit.cover, // makes the image cover the whole screen
               ),
             ),
@@ -129,25 +121,6 @@ class _HomeViewState extends State<HomeView> {
       height: double.infinity,
       child: Column(
         children: [
-          SizedBox(
-            height: 50,
-            width: double.infinity,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                drawer(icons: icons, titles: titles),
-                IconButton(onPressed: (){
-                  setState(() {
-                        if (tasks.isEmpty) {
-                          noTaskWarning(context);
-                        } else {
-                          deleteAllTaskWarning(context);
-                        }
-                      });
-                }, icon: const Icon(Icons.delete),)
-              ]
-            ),
-          ),
           /// Custom App Bar ///
           Container(
             margin: const EdgeInsets.only(top: 60),
@@ -162,7 +135,7 @@ class _HomeViewState extends State<HomeView> {
                   width: 50,
                   child: CircularProgressIndicator(
                     value: checkDoneTask(tasks) / valueOfIndicator(tasks),
-                    backgroundColor: Colors.grey,
+                    backgroundColor: Colors.white,
                     valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
                     strokeWidth: 10,
                     strokeAlign: BorderSide.strokeAlignOutside,
@@ -183,7 +156,10 @@ class _HomeViewState extends State<HomeView> {
                     SizedBox(height: 3),
                     Text(
                       "${checkDoneTask(tasks)} out of ${tasks.length} tasks has been completed",
-                      style: textTheme.titleMedium,
+                      style: TextStyle(
+                        color: AppColors.primaryColor,
+                        fontSize: 15,
+                      ),
                     ),
                   ],
                 ),
@@ -194,7 +170,7 @@ class _HomeViewState extends State<HomeView> {
           /// Divider ///
           const Padding(
             padding: EdgeInsets.only(top: 10),
-            child: Divider(thickness: 2, indent: 100),
+            child: Divider(thickness: 2, indent: 100,color: Colors.black,),
           ),
 
           /// Task List  ///

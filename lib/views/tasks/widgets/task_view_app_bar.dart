@@ -7,7 +7,7 @@ class TaskViewAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context){
     return SizedBox(
       width: double.infinity,
-      height: 150,
+      height: 80,
       child: Padding(
         padding: const EdgeInsets.only(left:15),
         child: Row(
