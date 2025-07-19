@@ -5,18 +5,15 @@ A beautiful and functional todo application built with Flutter, featuring task m
 ## 📱 Screenshots
 
 ### App Overview
-<!-- Add your app screenshots here -->
-![App Home Screen](assets/images/home1.png)
-![Task List View](assets/images/home2.png)
-![Drawer Screen](assets/images/drawer.png)
-![Add Task Screen](assets/images/addTask.png)
-![Update Task Screen](assets/images/updateTask.png)
+<img src="assets/images/home1.png" width="300"/>
+<img src="assets/images/home2.png" width="300"/>
+<img src="assets/images/drawer.png" width="300"/>
+<img src="assets/images/addTask.png" width="300"/>
+<img src="assets/images/updateTask.png" width="300"/>
 
 ### Features in Action
-<!-- Add feature demonstration images here -->
-![Date Picker](assets/images/date.png)
-![Time Picker](assets/images/time.png)
-
+<img src="assets/images/date.png" width="300"/>
+<img src="assets/images/time.png" width="300"/>
 ## ✨ Features
 
 - ✅ Create, update, and delete tasks
